@@ -15,6 +15,7 @@
         $(this).addClass('selected');
         $("#brand").children('.init').html($(this).html());
         allOptions.toggle();
+        $("#brand").removeAttr("style");
     });
     var marginSlider = document.getElementById('slider-margin');
     if (marginSlider != undefined) {
@@ -37,6 +38,14 @@
     $('#reset').on('click', function () {
         $('#register-form').reset();
     });
+
+    $('#submit').on('click', function () {
+        if ($('ul#brand > li.selected').text() == '') {
+            $("#brand").css({ 'border-color': 'red' });
+        }              
+    });
+
+
     $('#register-form').validate({
         rules: {
             first_name: {
