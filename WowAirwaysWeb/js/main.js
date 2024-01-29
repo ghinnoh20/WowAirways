@@ -48,26 +48,15 @@
             branch: $("#branch").val(),
             position: $("#position").val(),
         };
-        
-        $.ajax({
-            url: 'https://7u7btuuitcqwgjfh2rnnisf4we0kvrtb.lambda-url.ap-southeast-1.on.aws/attendees', // Replace with your server endpoint
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(jsonData),
-            success: function (response) {
-                // Handle success
-                //console.log('Response:', response);
-                alert('Success');
-            },
-            error: function (error) {
-                // Handle error
-                //console.error('Error:', error);
-                alert('Error');
-            }
-        });
-        
 
-        /*console.log(JSON.stringify(jsonData));*/
+        axios.post('https://7u7btuuitcqwgjfh2rnnisf4we0kvrtb.lambda-url.ap-southeast-1.on.aws/attendees',
+            jsonData)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     $('#reset').on('click', function () {
@@ -106,10 +95,7 @@
             }
         },
         submitHandler: function (form) {
-            //form.submit();
-            //alert('call httpPost()');
             httpPost();
-            //e.preventDefault(e);
             return false;
         },
         onfocusout: function (element) {
