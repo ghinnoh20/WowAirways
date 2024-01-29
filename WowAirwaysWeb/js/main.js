@@ -45,14 +45,20 @@
             last_name: {
                 required: true,
             },
-            company: {
+            brand: {
                 required: true
             },
             email: {
                 required: true,
                 email: true
             },
-            phone_number: {
+            mobile_number: {
+                required: true,
+            },
+            position: {
+                required: true,
+            },
+            branch: {
                 required: true,
             }
         },
