@@ -37,6 +37,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="css\style.css" />
+    <Content Include="fonts\poppins\poppins-v5-latin-100.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-100italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-200.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-200italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-300.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-300italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-500.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-500italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-600.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-600italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-700.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-700italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-800.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-800italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-900.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-900italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-italic.svg" />
+    <Content Include="fonts\poppins\poppins-v5-latin-regular.svg" />
     <Content Include="images\form-img.jpg" />
     <Content Include="js\main.js" />
     <Content Include="vendor\jquery-validation\dist\additional-methods.min.js" />
@@ -48,12 +66,89 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="vendor\nouislider\nouislider.min.css" />
+    <None Include="fonts\poppins\poppins-v5-latin-100.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-100.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-100.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-100.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-100italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-100italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-100italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-100italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-200.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-200.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-200.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-200.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-200italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-200italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-200italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-200italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-300.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-300.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-300.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-300.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-300italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-300italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-300italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-300italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-500.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-500.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-500.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-500.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-500italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-500italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-500italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-500italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-600.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-600.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-600.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-600.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-600italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-600italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-600italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-600italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-700.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-700.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-700.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-700.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-700italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-700italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-700italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-700italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-800.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-800.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-800.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-800.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-800italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-800italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-800italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-800italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-900.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-900.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-900.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-900.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-900italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-900italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-900italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-900italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-italic.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-italic.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-italic.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-italic.woff2" />
+    <None Include="fonts\poppins\poppins-v5-latin-regular.eot" />
+    <None Include="fonts\poppins\poppins-v5-latin-regular.ttf" />
+    <None Include="fonts\poppins\poppins-v5-latin-regular.woff" />
+    <None Include="fonts\poppins\poppins-v5-latin-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="vendor\jquery\jquery.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="vendor\wnumb\wNumb.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="fonts\material-icon\css\material-design-iconic-font.min.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
