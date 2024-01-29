@@ -55,7 +55,7 @@
     <Content Include="fonts\poppins\poppins-v5-latin-900italic.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-italic.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-regular.svg" />
-    <Content Include="images\form-img.jpg" />
+    <Content Include="images\form-img.png" />
     <Content Include="js\main.js" />
     <Content Include="vendor\jquery-validation\dist\additional-methods.min.js" />
     <Content Include="vendor\jquery-validation\dist\jquery.validate.min.js" />
