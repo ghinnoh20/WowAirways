@@ -35,6 +35,40 @@
             })
         });
     }
+
+
+    function httpPost() {
+
+        var jsonData = {
+            firstName: $("#first_name").val(),
+            lastName: $("#last_name").val(),
+            mobileNo: $("#mobile_number").val(),
+            email: $("#email").val(),
+            brand: $('ul#brand > li.selected').text(),
+            branch: $("#branch").val(),
+            position: $("#position").val(),
+        };
+        
+        $.ajax({
+            url: 'https://7u7btuuitcqwgjfh2rnnisf4we0kvrtb.lambda-url.ap-southeast-1.on.aws/attendees', // Replace with your server endpoint
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(jsonData),
+            success: function (response) {
+                // Handle success
+                //console.log('Response:', response);
+                alert('Success');
+            },
+            error: function (error) {
+                // Handle error
+                //console.error('Error:', error);
+                alert('Error');
+            }
+        });
+        
+
+    }
+
     $('#reset').on('click', function () {
         $('#register-form').reset();
     });
@@ -42,7 +76,9 @@
     $('#submit').on('click', function () {
         if ($('ul#brand > li.selected').text() == '') {
             $("#brand").css({ 'border-color': 'red' });
-        }              
+        } else {
+            httpPost();
+        }          
     });
 
 
