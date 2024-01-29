@@ -67,6 +67,7 @@
         });
         
 
+        /*console.log(JSON.stringify(jsonData));*/
     }
 
     $('#reset').on('click', function () {
@@ -76,11 +77,8 @@
     $('#submit').on('click', function () {
         if ($('ul#brand > li.selected').text() == '') {
             $("#brand").css({ 'border-color': 'red' });
-        } else {
-            httpPost();
-        }          
+        }        
     });
-
 
     $('#register-form').validate({
         rules: {
@@ -107,10 +105,19 @@
                 required: true,
             }
         },
+        submitHandler: function (form) {
+            //form.submit();
+            //alert('call httpPost()');
+            httpPost();
+            //e.preventDefault(e);
+            return false;
+        },
         onfocusout: function (element) {
             $(element).valid();
         },
     });
+
+
     jQuery.extend(jQuery.validator.messages, {
         required: "",
         remote: "",
