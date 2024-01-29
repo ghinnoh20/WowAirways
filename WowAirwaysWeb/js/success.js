@@ -49,15 +49,14 @@
             position: $("#position").val(),
         };
 
-        axios.post('https://7u7btuuitcqwgjfh2rnnisf4we0kvrtb.lambda-url.ap-southeast-1.on.aws/attendees',
-            jsonData)
-            .then(function (response) {
-                console.log(response);
-                window.location.href = "success.html";
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        //axios.post('https://7u7btuuitcqwgjfh2rnnisf4we0kvrtb.lambda-url.ap-southeast-1.on.aws/attendees',
+        //    jsonData)
+        //    .then(function (response) {
+        //        console.log(response);
+        //    })
+        //    .catch(function (error) {
+        //        console.log(error);
+        //    });
     }
 
     $('#reset').on('click', function () {

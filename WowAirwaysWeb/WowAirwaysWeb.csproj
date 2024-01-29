@@ -36,6 +36,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\success.css" />
     <Content Include="css\style.css" />
     <Content Include="fonts\poppins\poppins-v5-latin-100.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-100italic.svg" />
@@ -56,6 +57,8 @@
     <Content Include="fonts\poppins\poppins-v5-latin-italic.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-regular.svg" />
     <Content Include="images\form-img.png" />
+    <Content Include="js\success.js" />
+    <Content Include="success.html" />
     <Content Include="js\main.js" />
     <Content Include="vendor\jquery-validation\dist\additional-methods.min.js" />
     <Content Include="vendor\jquery-validation\dist\jquery.validate.min.js" />
