@@ -40,6 +40,11 @@ static IResult Ping()
 static async Task<IResult> AddAttendee([FromBody] Attendee attendee
     , DynamoDbRepository dynamoDbRepository)
 {
+
+    attendee.BookingReference = Guid.NewGuid().ToString().Substring(0, 17).ToUpper();
+    attendee.FlightNo = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
+    attendee.SeatNo = "0";
+
     var response = await dynamoDbRepository.AddItem(attendee);
 
     return Results.Created($"/attendees/{attendee.Id}", attendee);
@@ -52,7 +57,7 @@ static async Task<IResult> GetAttendees(DynamoDbRepository dynamoDbRepository)
     return Results.Ok(response);
 }
 
-static async Task<IResult> SendEmail(EmailService emailService)
+static async Task<IResult> CreateItineraryFile(EmailService emailService)
 {
     var bookingReference = Guid.NewGuid().ToString().Substring(0,17).ToUpper();
     var flightNo = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
@@ -66,6 +71,6 @@ app.MapGet("/", Ping);
 app.MapGet("/ping", Ping);
 app.MapPost("/attendees/", AddAttendee);
 app.MapGet("/attendees/", GetAttendees);
-app.MapGet("/email/", SendEmail);
+app.MapGet("/email/", CreateItineraryFile);
 
 app.Run();
