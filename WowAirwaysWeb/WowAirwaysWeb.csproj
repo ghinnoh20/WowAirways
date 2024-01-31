@@ -56,7 +56,7 @@
     <Content Include="fonts\poppins\poppins-v5-latin-900italic.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-italic.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-regular.svg" />
-    <Content Include="images\form-img.png" />
+    <Content Include="images\form-img.jpg" />
     <Content Include="js\success.js" />
     <Content Include="success.html" />
     <Content Include="js\main.js" />
