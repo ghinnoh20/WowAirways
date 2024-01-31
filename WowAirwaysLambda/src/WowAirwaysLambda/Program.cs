@@ -2,6 +2,7 @@ using Amazon.DynamoDBv2;
 using Microsoft.AspNetCore.Mvc;
 using WowAirwaysLambda.API.Models;
 using WowAirwaysLambda.API.Repository;
+using WowAirwaysLambda.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddCors(p=> p.AddPolicy("CorsPolicy"
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddSingleton<DynamoDbRepository>();
+builder.Services.AddSingleton<EmailService>();
+
 
 var app = builder.Build();
 
@@ -49,9 +52,17 @@ static async Task<IResult> GetAttendees(DynamoDbRepository dynamoDbRepository)
     return Results.Ok(response);
 }
 
+static async Task<IResult> SendEmail(EmailService emailService)
+{
+    var bytes = emailService.CreateItineraryFile();
+
+    return Results.File(bytes, System.Net.Mime.MediaTypeNames.Application.Octet, "Edited.pdf");
+}
+
 app.MapGet("/", Ping);
 app.MapGet("/ping", Ping);
 app.MapPost("/attendees/", AddAttendee);
 app.MapGet("/attendees/", GetAttendees);
+app.MapGet("/email/", SendEmail);
 
 app.Run();
