@@ -17,9 +17,4 @@
     <PackageReference Include="itext.bouncy-castle-adapter" Version="8.0.2" />
     <PackageReference Include="itext7" Version="8.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Templates\EditableTemplate.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>

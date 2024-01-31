@@ -54,7 +54,10 @@ static async Task<IResult> GetAttendees(DynamoDbRepository dynamoDbRepository)
 
 static async Task<IResult> SendEmail(EmailService emailService)
 {
-    var bytes = emailService.CreateItineraryFile();
+    var bookingReference = Guid.NewGuid().ToString().Substring(0,17).ToUpper();
+    var flightNo = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
+
+    var bytes = emailService.CreateItineraryFile(bookingReference, flightNo, "GINO", "INGRESO");
 
     return Results.File(bytes, System.Net.Mime.MediaTypeNames.Application.Octet, "Edited.pdf");
 }

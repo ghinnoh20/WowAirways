@@ -10,16 +10,17 @@ namespace WowAirwaysLambda.Service
         ///     Creates the Itinerary file to be used as attachment
         /// </summary>
         /// <returns></returns>
-        public byte[] CreateItineraryFile()
+        public byte[] CreateItineraryFile(string bookingReference, string flightNo
+            , string firstName, string lastName)
         {
-            string path = @"Templates/EditableTemplate.pdf";
+            string path = @"Templates/ItineraryTemplate.pdf";
             byte[] output = null;
 
             if (System.IO.File.Exists(path))
             {
                 var soruceFileStream = File.OpenRead(path);
                 var outputStream = new MemoryStream();
-                
+
                 var pdf = new PdfDocument(new PdfReader(soruceFileStream)
                     , new PdfWriter(outputStream));
 
@@ -33,11 +34,20 @@ namespace WowAirwaysLambda.Service
                     PdfFormField toSet;
 
                     fields.TryGetValue("txtBookingReference", out toSet);
-                    toSet.SetValue("Gino");
+                    toSet.SetValue(bookingReference);
+
+                    fields.TryGetValue("txtFlightNo1", out toSet);
+                    toSet.SetValue(flightNo);
+
+                    fields.TryGetValue("txtFlightNo2", out toSet);
+                    toSet.SetValue(flightNo);
+
+                    fields.TryGetValue("txtName", out toSet);
+                    toSet.SetValue($"{lastName},{firstName}");
 
                     pdf.Close();
 
-                    output =  outputStream.ToArray();
+                    output = outputStream.ToArray();
                 }
 
             }
