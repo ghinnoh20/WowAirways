@@ -4,7 +4,7 @@ using iText.Kernel.Pdf;
 
 namespace WowAirwaysLambda.Service
 {
-    public class EmailService
+    public class PdfService
     {
         /// <summary>
         ///     Creates the Itinerary file to be used as attachment

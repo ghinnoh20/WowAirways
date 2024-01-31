@@ -21,7 +21,7 @@ builder.Services.AddCors(p=> p.AddPolicy("CorsPolicy"
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddSingleton<DynamoDbRepository>();
-builder.Services.AddSingleton<EmailService>();
+builder.Services.AddSingleton<PdfService>();
 
 
 var app = builder.Build();
@@ -57,12 +57,12 @@ static async Task<IResult> GetAttendees(DynamoDbRepository dynamoDbRepository)
     return Results.Ok(response);
 }
 
-static async Task<IResult> CreateItineraryFile(EmailService emailService)
+static async Task<IResult> CreateItineraryFile(PdfService pdfService)
 {
     var bookingReference = Guid.NewGuid().ToString().Substring(0,17).ToUpper();
     var flightNo = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
 
-    var bytes = emailService.CreateItineraryFile(bookingReference, flightNo, "GINO", "INGRESO");
+    var bytes = pdfService.CreateItineraryFile(bookingReference, flightNo, "GINO", "INGRESO");
 
     return Results.File(bytes, System.Net.Mime.MediaTypeNames.Application.Octet, "Edited.pdf");
 }
