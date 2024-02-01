@@ -18,7 +18,7 @@ namespace WowAirwaysLambda.Service
 
             // Create the MailMessage object
             MailMessage mail = new MailMessage(senderEmail, recipientEmail);
-            mail.Subject = "Hello, this is a test email";
+            mail.Subject = "Booking Confirmation - 2024 Leaders Summit";
             mail.Body = CreateEmailBody();
             mail.IsBodyHtml = true;
 
