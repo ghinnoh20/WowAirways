@@ -22,7 +22,7 @@ builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddSingleton<DynamoDbRepository>();
 builder.Services.AddSingleton<PdfService>();
-
+builder.Services.AddSingleton<EmailService>();
 
 var app = builder.Build();
 
@@ -38,14 +38,25 @@ static IResult Ping()
 }
 
 static async Task<IResult> AddAttendee([FromBody] Attendee attendee
-    , DynamoDbRepository dynamoDbRepository)
+    , DynamoDbRepository dynamoDbRepository
+    , EmailService emailService)
 {
-
     attendee.BookingReference = Guid.NewGuid().ToString().Substring(0, 17).ToUpper();
     attendee.FlightNo = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
     attendee.SeatNo = "0";
 
+    Console.WriteLine($"Adding {attendee.Email} to DynamoDb...");
+
     var response = await dynamoDbRepository.AddItem(attendee);
+   
+    Console.WriteLine($"Attendee added to DynamoDb with UniqueId of {response}");
+
+    Console.WriteLine($"Sending email to {attendee.Email}...");
+
+    emailService.Send(attendee.Email, attendee.FirstName, attendee.LastName
+        , attendee.BookingReference, attendee.FlightNo);
+
+    Console.WriteLine($"Email sent.");
 
     return Results.Created($"/attendees/{attendee.Id}", attendee);
 }
