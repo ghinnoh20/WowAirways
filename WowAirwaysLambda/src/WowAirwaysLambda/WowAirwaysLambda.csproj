@@ -18,7 +18,13 @@
     <PackageReference Include="itext7" Version="8.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Templates\banner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Templates\BookingEmail.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Templates\ItineraryTemplate.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
