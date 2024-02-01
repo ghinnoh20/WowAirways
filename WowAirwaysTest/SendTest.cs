@@ -10,7 +10,7 @@ namespace WowAirwaysTest
         [TestInitialize]
         public void Init()
         {
-            _service = new EmailService();
+            _service = new EmailService(new PdfService());
         }
 
         [TestMethod]
@@ -18,10 +18,11 @@ namespace WowAirwaysTest
         {
             try
             {
-                //_service.Send("geingreso@shakeys.biz");
                 _service.Send("gino.martin.ingreso@gmail.com"
-                    , "Doe, John"
-                    , Guid.NewGuid().ToString().Substring(0, 17).ToUpper());
+                    , "John"
+                    , "Doe"
+                    , Guid.NewGuid().ToString().Substring(0, 17).ToUpper()
+                    , Guid.NewGuid().ToString().Substring(0, 5).ToUpper());
             }
             catch (Exception ex)
             {

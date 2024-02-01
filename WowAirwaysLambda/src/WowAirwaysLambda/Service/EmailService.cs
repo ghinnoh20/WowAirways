@@ -8,6 +8,14 @@ namespace WowAirwaysLambda.Service
 {
     public class EmailService
     {
+        private PdfService _pdfService;
+        private byte[] _bytes;
+
+        public EmailService(PdfService pdfService)
+        {
+            _pdfService = pdfService;
+        }
+
         private string CreateEmailBody(string attendeeName, string bookingReference)
         {
             var output = File.ReadAllText(@"Templates/BookingEmail.html");
@@ -40,7 +48,22 @@ namespace WowAirwaysLambda.Service
             return output;
         }
 
-        public void Send(string recipientEmail, string attendeeName, string bookingReference)
+        private Attachment CreateAttachment(string attendeeFirstName, string attendeeLastName
+            , string bookingReference, string flightNo)
+        {
+            _bytes = _pdfService.CreateItineraryFile(bookingReference, flightNo
+                , attendeeFirstName, attendeeLastName);
+
+            var output = new Attachment(new MemoryStream(_bytes),
+                new ContentType(MediaTypeNames.Application.Octet));
+
+            output.ContentDisposition.FileName = "BookingConfirmation.pdf";
+
+            return output;
+        }
+
+        public void Send(string recipientEmail, string attendeeFirstName, string attendeeLastName
+            , string bookingReference, string flightNo)
         {
             // Sender's email address and credentials
             string senderEmail = "2024leaderssummit@shakeys.biz";
@@ -52,7 +75,13 @@ namespace WowAirwaysLambda.Service
 
             mail.Subject = "Booking Confirmation - 2024 Leaders Summit";
             mail.IsBodyHtml = true;
-            mail.AlternateViews.Add(CreateAlternateView(CreateEmailBody(attendeeName, bookingReference)));
+
+            var htmlBody = CreateEmailBody($"{attendeeLastName}, {attendeeFirstName}"
+                , bookingReference);
+
+            mail.AlternateViews.Add(CreateAlternateView(htmlBody));
+
+            mail.Attachments.Add(CreateAttachment(attendeeFirstName, attendeeLastName, bookingReference, flightNo));
 
             // Create the SmtpClient object
             SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
