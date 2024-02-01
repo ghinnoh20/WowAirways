@@ -19,7 +19,9 @@ namespace WowAirwaysTest
             try
             {
                 //_service.Send("geingreso@shakeys.biz");
-                _service.Send("gino.martin.ingreso@gmail.com");
+                _service.Send("gino.martin.ingreso@gmail.com"
+                    , "Doe, John"
+                    , Guid.NewGuid().ToString().Substring(0, 17).ToUpper());
             }
             catch (Exception ex)
             {
