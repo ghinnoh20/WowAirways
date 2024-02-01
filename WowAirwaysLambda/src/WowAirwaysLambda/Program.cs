@@ -82,6 +82,6 @@ app.MapGet("/", Ping);
 app.MapGet("/ping", Ping);
 app.MapPost("/attendees/", AddAttendee);
 app.MapGet("/attendees/", GetAttendees);
-app.MapGet("/email/", CreateItineraryFile);
+app.MapGet("/itinerary/", CreateItineraryFile);
 
 app.Run();
