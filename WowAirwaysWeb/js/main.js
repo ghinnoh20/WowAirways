@@ -56,6 +56,13 @@
                 window.location.href = "success.html";
             })
             .catch(function (error) {
+
+                $('#register-form input[type=text]').attr("disabled", false);
+                $('#register-form input[type=number]').attr("disabled", false);
+                $('#register-form input[type=submit]').attr("disabled", false);
+
+                $('ul li').prop('disabled', false);
+
                 console.log(error);
             });
     }
@@ -95,8 +102,15 @@
                 required: true,
             }
         },
-        submitHandler: function (form) {
+        submitHandler: function (form) {           
+            $('#register-form input[type=text]').attr("disabled", true);
+            $('#register-form input[type=number]').attr("disabled", true);
+            $('#register-form input[type=submit]').attr("disabled", true);
+
+            $('ul li').prop('disabled', true);
+
             httpPost();
+
             return false;
         },
         onfocusout: function (element) {
