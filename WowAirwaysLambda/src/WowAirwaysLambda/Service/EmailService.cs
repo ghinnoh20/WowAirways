@@ -13,8 +13,8 @@ namespace WowAirwaysLambda.Service
         public void Send(string recipientEmail)
         {
             // Sender's email address and credentials
-            string senderEmail = "ginosoftwareengineermanager@gmail.com";
-            string senderPassword = "vbpbxxznxodcawhn";
+            string senderEmail = "2024leaderssummit@shakeys.biz";
+            string senderPassword = "Jah67081";
 
             // Create the MailMessage object
             MailMessage mail = new MailMessage(senderEmail, recipientEmail);
@@ -23,7 +23,7 @@ namespace WowAirwaysLambda.Service
             mail.IsBodyHtml = true;
 
             // Create the SmtpClient object
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
             smtpClient.Port = 587;
             smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
             smtpClient.EnableSsl = true;
