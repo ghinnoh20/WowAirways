@@ -10,6 +10,13 @@ namespace WowAirwaysPrinter.Services
 {
     public class PdfService
     {
+        private string _outputFolder;
+
+        public PdfService()
+        {
+            _outputFolder = "BoardingPassPDFs";
+        }
+
         private string GetTempalte(BoardingPassType boardingPassType)
         {
             var output = @"Templates/";
@@ -38,12 +45,12 @@ namespace WowAirwaysPrinter.Services
 
         private void CreatePdf(byte[] bytes, string fileName)
         {
-            if (!Directory.Exists(@"BoardingPassPDFs"))
+            if (!Directory.Exists(_outputFolder))
             {
-                Directory.CreateDirectory(@"BoardingPassPDFs");
+                Directory.CreateDirectory(_outputFolder);
             }
 
-            using (FileStream fs = File.Create($@"BoardingPassPDFs/{fileName}")) { 
+            using (FileStream fs = File.Create($@"{_outputFolder}/{fileName}")) { 
                 fs.Write(bytes, 0, (int)bytes.Length); 
             }
         }
