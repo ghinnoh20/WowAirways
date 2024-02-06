@@ -46,6 +46,8 @@ namespace WowAirwaysPrinter
             {
                 Log ($"{e.Result}");
             }
+
+            ToggleControls();
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -114,6 +116,13 @@ namespace WowAirwaysPrinter
             return output;
         }
 
+        private void ToggleControls()
+        {
+            btnBrowse.Enabled = (btnBrowse.Enabled) ? false: true;
+            btnStart.Enabled = (btnStart.Enabled) ? false : true;
+            rtxtStatus.Enabled = (rtxtStatus.Enabled) ? false : true;
+        }
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtFilename.Text))
@@ -129,7 +138,16 @@ namespace WowAirwaysPrinter
                 Directory.CreateDirectory("BoardingPassPDFs");
             }
 
+            DialogResult dialogResult = MessageBox.Show("Start PDF creation?", "Confirmation"
+                , MessageBoxButtons.YesNo
+                , MessageBoxIcon.Question);
 
+            if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+
+            ToggleControls();
             _backgroundWorker.RunWorkerAsync();
         }
 
@@ -144,11 +162,6 @@ namespace WowAirwaysPrinter
                 txtFilename.Text = fileDialog.FileName;
             }
         }
-
-
-        // Attach event handlers
-
-
 
     }
 }
