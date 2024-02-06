@@ -36,13 +36,15 @@ namespace WowAirwaysPrinter.Services
                 // Iterate through rows and columns to read cell values
                 for (int row = 2; row <= rowCount; row++)
                 {
-                    _attendees.Add(new Attendee()
+                    if(!string.IsNullOrEmpty(worksheet.Cells[row, 5].Text))
                     {
-                        FinalSeating = worksheet.Cells[row, 4].Text,
-                        FullName = worksheet.Cells[row, 5].Text,
-                        Division = worksheet.Cells[row, 6].Text.Trim()
-                    });
-
+                        _attendees.Add(new Attendee()
+                        {
+                            FinalSeating = worksheet.Cells[row, 4].Text,
+                            FullName = worksheet.Cells[row, 5].Text,
+                            Division = worksheet.Cells[row, 6].Text.Trim()
+                        });
+                    }
                 }
             }
             return _attendees;
