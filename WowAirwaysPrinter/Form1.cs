@@ -80,7 +80,7 @@ namespace WowAirwaysPrinter
 
         private void Log(string message)
         {
-            rtxtStatus.AppendText($"[{DateTime.Now.ToString("hh:mm:ss:fff TT")}]{message}{Environment.NewLine}");
+            rtxtStatus.AppendText($"[{DateTime.Now.ToString("hh:mm:ss:fff tt").ToUpper()}]{message}{Environment.NewLine}");
         }
 
         private BoardingPassType GetBoardingPassType(string division)
