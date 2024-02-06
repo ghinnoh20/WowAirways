@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using WowAirwaysPrinter.Models;
@@ -43,7 +44,7 @@ namespace WowAirwaysPrinter
             }
             else
             {
-                Log ($"Result: {e.Result}");
+                Log ($"{e.Result}");
             }
         }
 
@@ -65,6 +66,7 @@ namespace WowAirwaysPrinter
 
                 _pdfService.CreateBoardingPass(attendee.FullName
                     , attendee.FinalSeating
+                    , attendee.Division
                     , GetBoardingPassType(attendee.Division));
 
 
@@ -121,6 +123,12 @@ namespace WowAirwaysPrinter
 
                 return;
             }
+
+            if (!Directory.Exists("BoardingPassPDFs"))
+            {
+                Directory.CreateDirectory("BoardingPassPDFs");
+            }
+
 
             _backgroundWorker.RunWorkerAsync();
         }

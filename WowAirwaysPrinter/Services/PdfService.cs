@@ -12,10 +12,11 @@ namespace WowAirwaysPrinter.Services
     public class PdfService
     {
         private string _outputFolder;
+        private string _division;
 
         public PdfService()
         {
-            _outputFolder = "BoardingPassPDFs";
+            _outputFolder = string.Empty;
         }
 
         private string GetTempalte(BoardingPassType boardingPassType)
@@ -44,8 +45,10 @@ namespace WowAirwaysPrinter.Services
             return output;
         }
 
-        private void CreatePdf(byte[] bytes, string fileName)
+        private void CreatePdf(byte[] bytes, string folder, string fileName)
         {
+            _outputFolder = $@"BoardingPassPDFs/{folder}";
+
             if (!Directory.Exists(_outputFolder))
             {
                 Directory.CreateDirectory(_outputFolder);
@@ -59,7 +62,7 @@ namespace WowAirwaysPrinter.Services
         private string RemoveNonAlphaCharacters(string input)
         {
             // Use regular expression to match non-alphabetic characters
-            string pattern = "[^a-zA-Z]";
+            string pattern = @"[^a-zA-Z\s-]";
             Regex regex = new Regex(pattern);
 
             // Replace non-alphabetic characters with an empty string
@@ -76,12 +79,15 @@ namespace WowAirwaysPrinter.Services
         /// <returns></returns>
         public void CreateBoardingPass(string attendeeName
             , string seatNo
+            , string division
             , BoardingPassType boardingPassType = BoardingPassType.Default)
         {
             string path = GetTempalte(boardingPassType);
 
             if (System.IO.File.Exists(path))
             {
+                _division = RemoveNonAlphaCharacters(division);
+
                 var soruceFileStream = File.OpenRead(path);
                 var outputStream = new MemoryStream();
 
@@ -109,7 +115,9 @@ namespace WowAirwaysPrinter.Services
 
                     pdf.Close();
 
-                    CreatePdf(outputStream.ToArray(), $"{RemoveNonAlphaCharacters(attendeeName)}-{boardingPassType.ToString()}.pdf");
+                    CreatePdf(outputStream.ToArray()
+                        , _division
+                        , $"{RemoveNonAlphaCharacters(attendeeName)}-{boardingPassType.ToString()}.pdf");
                 }
 
             }
