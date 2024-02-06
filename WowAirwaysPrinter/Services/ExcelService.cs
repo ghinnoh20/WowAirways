@@ -40,7 +40,7 @@ namespace WowAirwaysPrinter.Services
                     {
                         FinalSeating = worksheet.Cells[row, 4].Text,
                         FullName = worksheet.Cells[row, 5].Text,
-                        Division = worksheet.Cells[row, 6].Text
+                        Division = worksheet.Cells[row, 6].Text.Trim()
                     });
 
                 }

@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using WowAirwaysPrinter.Models;
 using WowAirwaysPrinter.Services;
@@ -11,12 +14,68 @@ namespace WowAirwaysPrinter
 
         private PdfService _pdfService;
         private ExcelService _excelService;
+        private BackgroundWorker _backgroundWorker;
+
         public Form1()
         {
             InitializeComponent();
 
             _pdfService = new PdfService();
             _excelService = new ExcelService();
+
+            _backgroundWorker = new BackgroundWorker();
+            _backgroundWorker.WorkerReportsProgress = true;
+            _backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            _backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            _backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+        }
+
+        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Log($"{e.UserState}");
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Log($"Error: {e.Error.Message}");
+            }
+            else
+            {
+                Log ($"Result: {e.Result}");
+            }
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var counter = 1;
+
+            _backgroundWorker.ReportProgress(1, $"Reading contents of {txtFilename.Text}...");
+
+            var attendees = _excelService.Read(txtFilename.Text);
+
+            _backgroundWorker.ReportProgress(2, $"Total of {attendees.Count} attendees.");
+
+            _backgroundWorker.ReportProgress(3, "Creating PDFs...");
+
+            foreach (var attendee in attendees)
+            {
+                _backgroundWorker.ReportProgress(4, $"Creating PDF of {counter} of {attendees.Count}...");
+
+                _pdfService.CreateBoardingPass(attendee.FullName
+                    , attendee.FinalSeating
+                    , GetBoardingPassType(attendee.Division));
+
+
+                counter++;
+
+                Thread.Sleep(500);
+
+                _backgroundWorker.ReportProgress(5, $"PDF of {counter} of {attendees.Count} created.");
+
+            }
+            e.Result = "Done creating PDFs.";
         }
 
         private void Log(string message)
@@ -24,27 +83,64 @@ namespace WowAirwaysPrinter
             rtxtStatus.AppendText($"[{DateTime.Now.ToString("hh:mm:ss:fff TT")}]{message}{Environment.NewLine}");
         }
 
+        private BoardingPassType GetBoardingPassType(string division)
+        {
+            BoardingPassType output;
+
+            switch (division.ToUpper())
+            {
+                case "BMI":
+                case "CENTURY":
+                case "CORPORATE":
+                case "INTERNATIONAL":
+                    output = BoardingPassType.Default;
+                    break;
+                case "PERI-PERI":
+                    output = BoardingPassType.PeriPeri;
+                    break;
+                case "POTATO CORNER":
+                    output = BoardingPassType.PotatoCorner;
+                    break;
+                case "SHAKEY'S":
+                    output = BoardingPassType.Shakeys;
+                    break;
+                default:
+                    output = BoardingPassType.Default;
+                    break;
+            }
+
+            return output;
+        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            try
+            if (string.IsNullOrEmpty(txtFilename.Text))
             {
-                Log("Creating PDFs...");
-                //_pdfService.CreateBoardingPass("Linda, Blair 2", "23", BoardingPassType.Shakeys);
+                MessageBox.Show("No file selected.", "Validation Failed"
+                    , MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                var output = _excelService.Read(@"C:\Users\GinoMartinIngreso\Downloads\LS_Final Seat Plan_1.xlsx");
-
-                foreach (var item in output)
-                {
-                    Log(JsonConvert.SerializeObject(item));
-                }
-
-                Log("PDFs created.");
+                return;
             }
-            catch (Exception ex)
+
+            _backgroundWorker.RunWorkerAsync();
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            var fileDialog = new OpenFileDialog();
+
+            DialogResult result = fileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
             {
-                MessageBox.Show(ex.Message);
+                txtFilename.Text = fileDialog.FileName;
             }
         }
+
+
+        // Attach event handlers
+
+
+
     }
 }
