@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -44,7 +45,9 @@ namespace WowAirwaysPrinter
             }
             else
             {
-                Log ($"{e.Result}");
+                Log($"{e.Result}");
+                // opens the folder in explorer
+                Process.Start($@"{AppDomain.CurrentDomain.BaseDirectory}\BoardingPassPDFs");
             }
 
             ToggleControls();
@@ -118,7 +121,7 @@ namespace WowAirwaysPrinter
 
         private void ToggleControls()
         {
-            btnBrowse.Enabled = (btnBrowse.Enabled) ? false: true;
+            btnBrowse.Enabled = (btnBrowse.Enabled) ? false : true;
             btnStart.Enabled = (btnStart.Enabled) ? false : true;
             rtxtStatus.Enabled = (rtxtStatus.Enabled) ? false : true;
         }
