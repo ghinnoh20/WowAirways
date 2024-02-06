@@ -38,6 +38,7 @@
             // 
             // rtxtStatus
             // 
+            this.rtxtStatus.HideSelection = false;
             this.rtxtStatus.Location = new System.Drawing.Point(32, 96);
             this.rtxtStatus.Name = "rtxtStatus";
             this.rtxtStatus.ReadOnly = true;

@@ -4,6 +4,7 @@ using iText.IO.Source;
 using iText.Kernel.Pdf;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using WowAirwaysPrinter.Models;
 
 namespace WowAirwaysPrinter.Services
@@ -55,6 +56,18 @@ namespace WowAirwaysPrinter.Services
             }
         }
 
+        private string RemoveNonAlphaCharacters(string input)
+        {
+            // Use regular expression to match non-alphabetic characters
+            string pattern = "[^a-zA-Z]";
+            Regex regex = new Regex(pattern);
+
+            // Replace non-alphabetic characters with an empty string
+            string result = regex.Replace(input, "");
+
+            return result;
+        }
+
         /// <summary>
         ///     Creates a boarding pass PDF file
         /// </summary>
@@ -96,7 +109,7 @@ namespace WowAirwaysPrinter.Services
 
                     pdf.Close();
 
-                    CreatePdf(outputStream.ToArray(), $"{attendeeName}-{boardingPassType.ToString()}.pdf");
+                    CreatePdf(outputStream.ToArray(), $"{RemoveNonAlphaCharacters(attendeeName)}-{boardingPassType.ToString()}.pdf");
                 }
 
             }
