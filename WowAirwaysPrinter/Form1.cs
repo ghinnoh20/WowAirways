@@ -77,8 +77,8 @@ namespace WowAirwaysPrinter
                         , BoardingPassType.DefaultAndGreen);
 
                     _pdfService.CreateBoardingPass(attendee.FullName
-                        , attendee.FinalSeating
-                        , attendee.FullName
+                        , attendee.ColorSeatNo
+                        , Convert.ToInt32(attendee.ColorSeatNo)
                         , BoardingPassType.YellowAndOrange);
 
                 }
