@@ -12,5 +12,6 @@ namespace WowAirwaysPrinter.Models
         public string FinalSeating { get; set; }
         public string FullName { get; set; }
         public string Division { get; set; }
+        public string ColorSeatNo { get; set; }
     }
 }

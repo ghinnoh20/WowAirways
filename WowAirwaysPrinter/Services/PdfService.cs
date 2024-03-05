@@ -25,11 +25,14 @@ namespace WowAirwaysPrinter.Services
 
             switch (boardingPassType)
             {
+                case BoardingPassType.DefaultAndGreen:
+                    output += "Default-Green.pdf";
+                    break;
                 case BoardingPassType.YellowAndOrange:
                     output += "Yellow-Orange.pdf";
                     break;
                 default:
-                    output += "Default-Green.pdf";
+                    output += "Default.pdf";
                     break;
             }
 
@@ -38,7 +41,7 @@ namespace WowAirwaysPrinter.Services
 
         private void CreatePdf(byte[] bytes, string folder, string fileName)
         {
-            if (!string.IsNullOrEmpty( folder))
+            if (!string.IsNullOrEmpty(folder))
             {
                 _outputFolder = $@"BoardingPassPDFs/{folder}";
 
@@ -51,9 +54,10 @@ namespace WowAirwaysPrinter.Services
             {
                 _outputFolder = $@"BoardingPassPDFs";
             }
-           
-            using (FileStream fs = File.Create($@"{_outputFolder}/{fileName}")) { 
-                fs.Write(bytes, 0, (int)bytes.Length); 
+
+            using (FileStream fs = File.Create($@"{_outputFolder}/{fileName}"))
+            {
+                fs.Write(bytes, 0, (int)bytes.Length);
             }
         }
 
@@ -110,6 +114,54 @@ namespace WowAirwaysPrinter.Services
 
                     fields.TryGetValue("txtSeat2", out toSet);
                     toSet.SetValue(seatNo);
+
+                    pdf.Close();
+
+                    CreatePdf(outputStream.ToArray()
+                        , _division
+                        , $"{RemoveNonAlphaCharacters(attendeeName)}-{boardingPassType.ToString()}.pdf");
+                }
+
+            }
+
+        }
+
+        //TODO: Refactor code using DRY approach
+        public void CreateBoardingPass(string attendeeName
+            , string seatNo
+            , int colorSetNo
+            , BoardingPassType boardingPassType = BoardingPassType.Default)
+        {
+            string path = GetTempalte(boardingPassType);
+
+            if (System.IO.File.Exists(path))
+            {
+                _division = RemoveNonAlphaCharacters(attendeeName);
+
+                var soruceFileStream = File.OpenRead(path);
+                var outputStream = new MemoryStream();
+
+                var pdf = new PdfDocument(new PdfReader(soruceFileStream)
+                    , new PdfWriter(outputStream));
+
+                var form = PdfAcroForm.GetAcroForm(pdf, false);
+
+                if (form != null)
+                {
+                    IDictionary<string, PdfFormField> fields = form.GetAllFormFields();
+                    PdfFormField toSet;
+
+                    fields.TryGetValue("txtAttendee1", out toSet);
+                    toSet.SetValue(attendeeName);
+
+                    fields.TryGetValue("txtAttendee2", out toSet);
+                    toSet.SetValue(attendeeName);
+
+                    fields.TryGetValue("txtSeat1", out toSet);
+                    toSet.SetValue(seatNo);
+
+                    fields.TryGetValue("txtSeat2", out toSet);
+                    toSet.SetValue(colorSetNo.ToString());
 
                     pdf.Close();
 

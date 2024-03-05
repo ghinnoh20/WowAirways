@@ -187,6 +187,9 @@
     <None Include="Templates\Default-Green.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\Default.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\Yellow-Orange.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

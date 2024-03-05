@@ -69,16 +69,27 @@ namespace WowAirwaysPrinter
             {
                 _backgroundWorker.ReportProgress(4, $"Creating PDF of {counter} of {attendees.Count}...");
 
-                _pdfService.CreateBoardingPass(attendee.FullName
-                    , attendee.FinalSeating
-                    , attendee.FullName
-                    , BoardingPassType.DefaultAndGreen);
+                if (!string.IsNullOrEmpty(attendee.ColorSeatNo))
+                {
+                    _pdfService.CreateBoardingPass(attendee.FullName
+                        , attendee.FinalSeating
+                        , Convert.ToInt32(attendee.ColorSeatNo)
+                        , BoardingPassType.DefaultAndGreen);
 
+                    _pdfService.CreateBoardingPass(attendee.FullName
+                        , attendee.FinalSeating
+                        , attendee.FullName
+                        , BoardingPassType.YellowAndOrange);
 
-                _pdfService.CreateBoardingPass(attendee.FullName
-                    , attendee.FinalSeating
-                    , attendee.FullName
-                    , BoardingPassType.YellowAndOrange);
+                }
+                else
+                {
+                    _pdfService.CreateBoardingPass(attendee.FullName
+                        , attendee.FinalSeating
+                        , attendee.FullName
+                        , BoardingPassType.Default);
+                }
+
                
                 Thread.Sleep(500);
 
