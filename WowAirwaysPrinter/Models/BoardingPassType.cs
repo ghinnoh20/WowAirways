@@ -6,6 +6,8 @@
         PeriPeri = 2,
         PotatoCorner = 3,
         RnB = 4,
-        Default = 5
+        Default = 5,
+        YellowAndOrange = 6,
+        DefaultAndGreen = 7,
     }
 }

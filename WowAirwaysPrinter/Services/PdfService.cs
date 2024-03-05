@@ -25,20 +25,11 @@ namespace WowAirwaysPrinter.Services
 
             switch (boardingPassType)
             {
-                case BoardingPassType.Shakeys:
-                    output += "Shakeys.pdf";
-                    break;
-                case BoardingPassType.PeriPeri:
-                    output += "PeriPeri.pdf";
-                    break;
-                case BoardingPassType.PotatoCorner:
-                    output += "PC-RB.pdf";
-                    break;
-                case BoardingPassType.RnB:
-                    output += "PC-RB.pdf";
+                case BoardingPassType.YellowAndOrange:
+                    output += "Yellow-Orange.pdf";
                     break;
                 default:
-                    output += "Default.pdf";
+                    output += "Default-Green.pdf";
                     break;
             }
 
@@ -47,13 +38,20 @@ namespace WowAirwaysPrinter.Services
 
         private void CreatePdf(byte[] bytes, string folder, string fileName)
         {
-            _outputFolder = $@"BoardingPassPDFs/{folder}";
-
-            if (!Directory.Exists(_outputFolder))
+            if (!string.IsNullOrEmpty( folder))
             {
-                Directory.CreateDirectory(_outputFolder);
-            }
+                _outputFolder = $@"BoardingPassPDFs/{folder}";
 
+                if (!Directory.Exists(_outputFolder))
+                {
+                    Directory.CreateDirectory(_outputFolder);
+                }
+            }
+            else
+            {
+                _outputFolder = $@"BoardingPassPDFs";
+            }
+           
             using (FileStream fs = File.Create($@"{_outputFolder}/{fileName}")) { 
                 fs.Write(bytes, 0, (int)bytes.Length); 
             }

@@ -71,15 +71,20 @@ namespace WowAirwaysPrinter
 
                 _pdfService.CreateBoardingPass(attendee.FullName
                     , attendee.FinalSeating
-                    , attendee.Division
-                    , GetBoardingPassType(attendee.Division));
+                    , attendee.FullName
+                    , BoardingPassType.DefaultAndGreen);
 
 
-                counter++;
-
+                _pdfService.CreateBoardingPass(attendee.FullName
+                    , attendee.FinalSeating
+                    , attendee.FullName
+                    , BoardingPassType.YellowAndOrange);
+               
                 Thread.Sleep(500);
 
                 _backgroundWorker.ReportProgress(5, $"PDF of {counter} of {attendees.Count} created.");
+
+                counter++;
 
             }
             e.Result = "Done creating PDFs.";
